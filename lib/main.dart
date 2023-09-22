@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 import 'package:sum_app/style.dart';
@@ -27,13 +29,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double num1 = 0;
-  double num2 = 0;
-  double num3 = 0;
+
+  Map<String, double> number = {
+    'num1':0 ,
+    'num2': 0,
+    'num3':0,
+  };
   double result = 0;
 
   @override
   Widget build(BuildContext context) {
+
+    getInput(inputKey,inputValue){
+      number.update(inputKey, (value) => inputValue);
+    }
+
+    addNumber(){
+      result = number['num1']! + number['num2']! + number['num3']!;
+    }
+
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
@@ -57,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: linePadding(),
                 child: TextField(
                   onChanged: (value) {
-                    num1 = double.parse(value);
+                    getInput('num1', double.parse(value));
                   },
                   decoration: fieldInput('Number 1'),
                   style: inputTextStyle(),
@@ -67,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: linePadding(),
                 child: TextField(
                   onChanged: (value) {
-                    num2 = double.parse(value);
+                    getInput('num2', double.parse(value));
                   },
                   decoration: fieldInput('Number 2'),
                   style: inputTextStyle(),
@@ -77,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: linePadding(),
                 child: TextField(
                   onChanged: (value) {
-                    num3 = double.parse(value);
+                    getInput('num3', double.parse(value));
                   },
                   decoration: fieldInput('Number 3'),
                   style: inputTextStyle(),
@@ -92,12 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     'sum',
                   ),
                   onPressed: () {
-                    print(num1);
-                    print(num2);
-                    print(num3);
-                    print(num1+num2+num3);
+                    print(number['num1']);
+                    print(number['num2']);
+                    print(number['num3']);
+                    print(number['num1']! + number['num2']! + number['num3']!);
+
                     setState(() {
-                      result = num1+num2+num3;
+                      addNumber();
                     });
                   },
                 ),
